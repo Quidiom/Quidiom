@@ -4,6 +4,7 @@ interface loginState {
   username: string,
   password: string,
   loggedIn: boolean,
+  loggedInUser: any,
   failedLogin: boolean
 }
 
@@ -11,6 +12,7 @@ const initialState: loginState = {
   username: '',
   password: '',
   loggedIn: false,
+  loggedInUser: undefined,
   failedLogin: false
 }
 

@@ -30,6 +30,7 @@ function GameOptions(): React.JSX.Element {
   function handleClick(e: any) {
     fetchQuestions()
     dispatch(startGame())
+    //redirect to /game path
   }
 
   async function fetchQuestions() {
