@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface gameState {
+  gameStarted: boolean,
   questionList: [],
   category: string,
   difficulty: string,
@@ -9,6 +10,7 @@ interface gameState {
 }
 
 const initialState: gameState = {
+  gameStarted: false,
   questionList: [],
   category: '',
   difficulty: '',
@@ -20,6 +22,9 @@ export const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    startGame: (state) => {
+      state.gameStarted = true
+    },
     chooseCategory: (state, action) => {
       state.category = action.payload
     },
@@ -41,6 +46,6 @@ export const gameSlice = createSlice({
   }
 })
 
-export const { chooseCategory, chooseDifficulty, correctAnswer, setQuestions, changeCurrentQuestion, resetGame } = gameSlice.actions
+export const { startGame, chooseCategory, chooseDifficulty, correctAnswer, setQuestions, changeCurrentQuestion, resetGame } = gameSlice.actions
 
 export default gameSlice.reducer
