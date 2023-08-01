@@ -12,16 +12,17 @@ function TriviaGame() {
   const answeredCurrent = useSelector((state: any) => state.game.answeredCurrent)
   const numCorrect = useSelector((state: any) => state.game.numCorrect)
   const difficulty = useSelector((state: any) => state.game.difficulty)
-  // const currentChoices = useSelector((state: any) => state.game.currentChoices)
   const currentAnswer = useSelector((state: any) => state.game.currentAnswer)
   const username = useSelector((state: any) => state.login.loggedInUser)
   const currentColors = useSelector((state: any) => state.game.currentColors)
 
   // const [choicesColors, setChoicesColors] = useState(['white', 'white', 'white', 'white'])
   const [currentChoices, setCurrentChoices] = useState([])
+  // const [currentAnswer, setCurrentAnswer] = useState(0)
 
-  useEffect(formatChoices, [])
-  useEffect(formatChoices, [currentQuestion])
+  // useEffect(formatChoices, [])
+  useEffect(randomizeAnswer, [currentQuestion])
+  useEffect(formatChoices, [currentAnswer])
 
   function handleNextClick() {
     dispatch(toggleAnsweredCurrent())
@@ -30,6 +31,9 @@ function TriviaGame() {
   }
 
   function handleGameClick(e: any) {
+    console.log('Clicked on box ', e.target.id)
+    console.log('The correct answer is', currentAnswer)
+    console.log('The actual correct answer is', questionList[currentQuestion].correct_answer)
     const colorsCopy = currentColors.slice()
     if (e.target.id == currentAnswer) {
       colorsCopy[e.target.id] = 'green'
@@ -43,27 +47,29 @@ function TriviaGame() {
     dispatch(toggleAnsweredCurrent())
   }
 
+  function randomizeAnswer() {
+    const random = Math.floor(Math.random() * 4)
+    dispatch(updateCurrentAnswer(random))
+  }
+
   function formatChoices() {
     const choices: any = []
-    const random = Math.floor(Math.random() * 4)
     let j = 0
     for (let i = 0; i < 4; i++) {
-      if (random !== i) {
+      if (currentAnswer != i) {
         choices.push(
           <ChoiceBox answer={questionList[currentQuestion].incorrect_answers[j]} idx={i} clickHandle={handleGameClick} />
         )
         j++
       } else {
         choices.push(
-          <ChoiceBox answer={questionList[currentQuestion].correct_answer} idx={random} clickHandle={handleGameClick} />
+          <ChoiceBox answer={questionList[currentQuestion].correct_answer} idx={i} clickHandle={handleGameClick} />
         )
       }
     }
-    // choices.splice(random, 0, <ChoiceBox answer={questionList[currentQuestion].correct_answer} idx={random} clickHandle={handleGameClick} />)
-    dispatch(updateCurrentAnswer(random))
-    // dispatch(updateCurrentChoices(choices))
     setCurrentChoices(choices)
   }
+
 
   function postResults() {
     const body = {

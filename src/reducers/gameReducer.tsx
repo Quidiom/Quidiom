@@ -8,7 +8,7 @@ interface gameState {
   numCorrect: number,
   currentQuestion: number,
   answeredCurrent: boolean,
-  currentColors: [],
+  currentColors: string[],
   currentAnswer: number
 }
 
@@ -20,7 +20,7 @@ const initialState: gameState = {
   numCorrect: 0,
   currentQuestion: 0,
   answeredCurrent: false,
-  currentColors: [],
+  currentColors: ['white', 'white', 'white', 'white'],
   currentAnswer: 0
 }
 

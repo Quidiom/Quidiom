@@ -35,7 +35,7 @@ function GameOptions(): React.JSX.Element {
     fetchQuestions()
     dispatch(startGame())
     //redirect to /game path
-    setTimeout(() => { navigate('/game') }, 500)
+    setTimeout(() => { navigate('/game') }, 1000)
   }
 
   async function fetchQuestions() {

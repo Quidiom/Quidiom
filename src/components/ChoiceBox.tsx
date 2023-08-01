@@ -10,12 +10,9 @@ interface choiceBoxProps {
 function ChoiceBox(props: choiceBoxProps): React.JSX.Element {
   const answeredCurrent = useSelector((state: any) => state.game.answeredCurrent)
   const currentColors = useSelector((state: any) => state.game.currentColors)
+  const currentAnswer = useSelector((state: any) => state.game.currentAnswer)
 
   const { answer, idx, clickHandle } = props
-
-  // useEffect(() => {
-  //   console.log(colors)
-  // }, [colors])
 
   return (
     <button id={idx.toString()} disabled={answeredCurrent} onClick={(e) => clickHandle(e)} style={{ backgroundColor: currentColors[idx] }}>{answer}</button>
