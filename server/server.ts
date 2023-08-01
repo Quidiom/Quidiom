@@ -24,6 +24,10 @@ app.get('/leaderboard', statController.fetchLeaderboard, (req: Request, res: Res
   res.status(200).send(res.locals.leaderboard);
 })
 
+app.post('/createUser', authController.createUser, (req: Request, res: Response) => {
+  res.sendStatus(200);
+})
+
 // unknown route handler
 app.use((req, res) => {
   res.status(404).send('Page not found')
