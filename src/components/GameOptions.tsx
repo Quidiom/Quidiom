@@ -1,16 +1,17 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { chooseCategory, chooseDifficulty, startGame, setQuestions } from "../reducers/gameReducer"
+import { categoryObj, categoryKey } from "../types"
 
 function GameOptions(): React.JSX.Element {
   const dispatch = useDispatch()
 
-  const category = useSelector((state: any) => state.game.category)
+  const category: categoryKey = useSelector((state: any) => state.game.category)
   const difficulty = useSelector((state: any) => state.game.difficulty)
 
   const baseURL = 'https://opentdb.com/api.php?amount=10'
 
-  const categoryNums = {
+  const categoryNums: categoryObj = {
     'General': '9',
     'History': '23',
     'Science': '17',
