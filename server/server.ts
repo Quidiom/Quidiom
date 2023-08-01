@@ -1,3 +1,4 @@
-const pg = require('pg');
-const connection_string: string = "postgres://usazetuz:YURmRz6z-mxPZqqNTvj9gVIogc8qws5J@stampy.db.elephantsql.com/usazetuz";
-const db = new pg.Client(connection_string);
+import { Pool } from 'pg';
+require("dotenv").config();
+const connection_string: string | undefined = process.env.PG_CONNECTION_STRING; 
+const pool = new Pool({connection_string});
