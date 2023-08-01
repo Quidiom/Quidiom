@@ -47,7 +47,12 @@ statController.updateScore = async (req: Request, res: Response, next: NextFunct
 
 statController.fetchLeaderboard = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
+    // select all from easy, medium, and hard, and store results in variables
+    const easy = (await pool.query('SELECT * FROM easy')).rows
+    const medium = (await pool.query('SELECT * FROM medium')).rows
+    const hard = (await pool.query('SELECT * FROM hard')).rows
+    res.locals.leaderboard = [easy, medium, hard]
+    // return an array containing all of these variables
   } catch (e) {
     return next({
       log: 'Express error handler caught an error when trying to fetch leaderboard',

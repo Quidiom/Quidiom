@@ -20,6 +20,10 @@ app.post('/updateScore', statController.updateScore, (req: Request, res: Respons
   res.sendStatus(200);
 })
 
+app.get('/leaderboard', statController.fetchLeaderboard, (req: Request, res: Response) => {
+  res.status(200).send(res.locals.leaderboard);
+})
+
 // unknown route handler
 app.use((req, res) => {
   res.status(404).send('Page not found')
