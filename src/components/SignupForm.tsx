@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { updateConfirmSignupPassword, updateSignupPassword, updateSignupUsername } from "../reducers/signupReducer";
 
 
-function SignupForm() {
+function SignupForm(): React.JSX.Element {
   const dispatch = useDispatch()
 
   const username = useSelector((state: any) => state.signup.username)

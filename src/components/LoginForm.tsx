@@ -2,9 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updateLoginPassword, updateLoginUsername } from "../reducers/loginReducer";
+import { redirect } from "react-router-dom";
 
 
-function LoginForm() {
+function LoginForm(): React.JSX.Element {
   const dispatch = useDispatch()
 
   const username = useSelector((state: any) => state.login.username)
@@ -22,6 +23,7 @@ function LoginForm() {
     e.preventDefault()
     //make request to login path on server
     //store received user info in state
+    redirect('/home')
   }
 
   return (
