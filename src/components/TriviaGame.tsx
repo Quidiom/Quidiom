@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { changeCurrentQuestion, correctAnswer, toggleAnsweredCurrent, updateCurrentAnswer, updateCurrentChoices } from "../reducers/gameReducer";
+import { changeCurrentQuestion, correctAnswer, toggleAnsweredCurrent, updateCurrentAnswer, updateCurrentColors } from "../reducers/gameReducer";
 import ChoiceBox from "./ChoiceBox";
 
 function TriviaGame() {
@@ -12,41 +12,57 @@ function TriviaGame() {
   const answeredCurrent = useSelector((state: any) => state.game.answeredCurrent)
   const numCorrect = useSelector((state: any) => state.game.numCorrect)
   const difficulty = useSelector((state: any) => state.game.difficulty)
-  const currentChoices = useSelector((state: any) => state.game.currentChoices)
+  // const currentChoices = useSelector((state: any) => state.game.currentChoices)
   const currentAnswer = useSelector((state: any) => state.game.currentAnswer)
   const username = useSelector((state: any) => state.login.loggedInUser)
+  const currentColors = useSelector((state: any) => state.game.currentColors)
 
+  // const [choicesColors, setChoicesColors] = useState(['white', 'white', 'white', 'white'])
+  const [currentChoices, setCurrentChoices] = useState([])
+
+  useEffect(formatChoices, [])
   useEffect(formatChoices, [currentQuestion])
 
   function handleNextClick() {
     dispatch(toggleAnsweredCurrent())
     dispatch(changeCurrentQuestion())
+    dispatch(updateCurrentColors(["white", "white", "white", "white"]))
   }
 
   function handleGameClick(e: any) {
+    const colorsCopy = currentColors.slice()
     if (e.target.id == currentAnswer) {
-      e.target.style.backgroundColor = 'green'
+      colorsCopy[e.target.id] = 'green'
       dispatch(correctAnswer())
     } else {
-      e.target.style.backgroundColor = 'red'
-      currentChoices[currentAnswer].style.backgroundColor = 'green'
+      colorsCopy[e.target.id] = 'red'
+      colorsCopy[currentAnswer] = 'green'
     }
+    // setChoicesColors(colorsCopy)
+    dispatch(updateCurrentColors(colorsCopy))
     dispatch(toggleAnsweredCurrent())
   }
 
   function formatChoices() {
-    const choices: React.JSX.Element[] = []
+    const choices: any = []
     const random = Math.floor(Math.random() * 4)
-    for (let i = 0; i < questionList[currentQuestion].incorrect_answers.length + 1; i++) {
+    let j = 0
+    for (let i = 0; i < 4; i++) {
       if (random !== i) {
         choices.push(
-          <ChoiceBox answer={questionList[currentQuestion].incorrect_answers[i]} idx={i} clickHandle={handleGameClick} />
+          <ChoiceBox answer={questionList[currentQuestion].incorrect_answers[j]} idx={i} clickHandle={handleGameClick} />
+        )
+        j++
+      } else {
+        choices.push(
+          <ChoiceBox answer={questionList[currentQuestion].correct_answer} idx={random} clickHandle={handleGameClick} />
         )
       }
     }
-    choices.splice(random, 0, <ChoiceBox answer={questionList[currentQuestion].correct_answer} idx={random} clickHandle={handleGameClick} />)
+    // choices.splice(random, 0, <ChoiceBox answer={questionList[currentQuestion].correct_answer} idx={random} clickHandle={handleGameClick} />)
     dispatch(updateCurrentAnswer(random))
-    dispatch(updateCurrentChoices(choices))
+    // dispatch(updateCurrentChoices(choices))
+    setCurrentChoices(choices)
   }
 
   function postResults() {
@@ -55,12 +71,12 @@ function TriviaGame() {
       numCorrect: numCorrect,
       difficulty: difficulty,
     }
-    
   }
 
   return (
     <div>
-      <h3>{questionList[currentQuestion].question}</h3>
+      {questionList.length &&
+        <h3>{questionList[currentQuestion].question}</h3>}
       {currentChoices}
       {answeredCurrent &&
         <button onClick={handleNextClick}>Next Question</button>

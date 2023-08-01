@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 interface choiceBoxProps {
   answer: string,
   idx: number,
-  clickHandle: Function
+  clickHandle: Function,
 }
 
 function ChoiceBox(props: choiceBoxProps): React.JSX.Element {
   const answeredCurrent = useSelector((state: any) => state.game.answeredCurrent)
-  const {answer, idx, clickHandle} = props
+  const currentColors = useSelector((state: any) => state.game.currentColors)
+
+  const { answer, idx, clickHandle } = props
+
+  // useEffect(() => {
+  //   console.log(colors)
+  // }, [colors])
 
   return (
-    <button id={idx.toString()} disabled={answeredCurrent} onClick={(e) => clickHandle(e)} >{answer}</button>
+    <button id={idx.toString()} disabled={answeredCurrent} onClick={(e) => clickHandle(e)} style={{ backgroundColor: currentColors[idx] }}>{answer}</button>
   )
 }
 
