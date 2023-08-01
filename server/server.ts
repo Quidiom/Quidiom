@@ -2,7 +2,7 @@ import express, { Express, Request, Response,  } from 'express';
 const { Pool } = require('pg');
 require("dotenv").config();
 const connectionString: string | undefined = process.env.PG_CONNECTION_STRING; 
-const pool = new Pool({connectionString});
+export const pool = new Pool({connectionString});
 const app: Express = express();
 const path = require('path');
 const port = 3000;
@@ -10,10 +10,14 @@ const authController = require('./controllers/authController');
 const statController = require('./controllers/statController');
 
 // need to write route to render the front end from the build file (webpack output)
-
+app.use(express.json());
 // test route
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello from the backend! =)')
+})
+
+app.post('/updateScore', statController.updateScore, (req: Request, res: Response) => {
+  res.sendStatus(200);
 })
 
 // unknown route handler
