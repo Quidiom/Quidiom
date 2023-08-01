@@ -7,6 +7,7 @@ const statController = require('./controllers/statController');
 
 // need to write route to render the front end from the build file (webpack output)
 
+// test route
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello From the Backend!')
 })
@@ -27,7 +28,6 @@ app.use((err: Error, req: Request, res: Response) => {
   console.log(errorObject.log)
   res.status(errorObject.status).json(errorObject.message)
 })
-
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`)
