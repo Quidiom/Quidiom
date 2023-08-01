@@ -1,6 +1,8 @@
 const statController: any = {};
 import { Request, Response, NextFunction } from 'express';
 
+// const data = await pool.query('SELECT * FROM users')
+
 statController.updateScore = (req: Request, res: Response, next: NextFunction) => {
   /* this middleware should be invoked at the end of each round to update the user's stats in the database
   first, we will ask the front end if they were playing on easy, medium, or hard, and then go to 

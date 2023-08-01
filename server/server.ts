@@ -1,4 +1,8 @@
 import express, { Express, Request, Response,  } from 'express';
+const { Pool } = require('pg');
+require("dotenv").config();
+const connectionString: string | undefined = process.env.PG_CONNECTION_STRING; 
+const pool = new Pool({connectionString});
 const app: Express = express();
 const path = require('path');
 const port = 3000;
@@ -9,7 +13,7 @@ const statController = require('./controllers/statController');
 
 // test route
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello From the Backend!')
+  res.send('Hello from the backend! =)')
 })
 
 // unknown route handler
