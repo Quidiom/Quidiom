@@ -1,4 +1,8 @@
 import express, { Express, Request, Response,  } from 'express';
+import { Pool } from 'pg';
+require("dotenv").config();
+const connection_string: string | undefined = process.env.PG_CONNECTION_STRING; 
+const pool = new Pool({connection_string});
 const app: Express = express();
 const path = require('path');
 const port = 3000;
