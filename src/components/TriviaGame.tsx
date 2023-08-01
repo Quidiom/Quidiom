@@ -52,7 +52,7 @@ function TriviaGame() {
   function postResults() {
     const body = {
       username: username,
-      correct: numCorrect,
+      numCorrect: numCorrect,
       difficulty: difficulty,
     }
     
