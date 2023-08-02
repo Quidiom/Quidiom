@@ -47,11 +47,14 @@ statController.updateScore = async (req: Request, res: Response, next: NextFunct
 
 statController.fetchLeaderboard = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // select all from easy, medium, and hard, and store results in variables
-    const easy = (await pool.query('SELECT * FROM easy')).rows
-    const medium = (await pool.query('SELECT * FROM medium')).rows
-    const hard = (await pool.query('SELECT * FROM hard')).rows
-    res.locals.leaderboard = [easy, medium, hard]
+    // const getUsernames = (await pool.query('SELECT username FROM users')).rows;
+    // console.log(getUsernames)
+
+    const query = 'SELECT users.username, easy.correct AS easy_correct, easy.total AS easy_total, medium.correct AS medium_correct, medium.total AS medium_total, hard.correct AS hard_correct, hard.total AS hard_total FROM users INNER JOIN easy ON users._id = easy.user_id INNER JOIN medium ON users._id = medium.user_id INNER JOIN hard ON users._id = hard.user_id';
+
+    res.locals.leaderboard = (await pool.query(query)).rows
+
+    return next()  
     //send usernames along with results tables!!
     // return an array containing all of these variables
   } catch (e) {
@@ -65,7 +68,7 @@ statController.fetchLeaderboard = async (req: Request, res: Response, next: Next
   // format will be as an array of objects, where each object represents a row in the data set
   // return the array of objects with next()
   // if unable to fetch from db, invoke the global error handler
-  return next()
+
 };
 
 module.exports = statController;

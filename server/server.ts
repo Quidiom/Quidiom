@@ -12,23 +12,23 @@ const statController = require('./controllers/statController');
 // need to write route to render the front end from the build file (webpack output)
 app.use(express.json());
 // test route
-app.get('/', (req: Request, res: Response) => {
+app.get('/api', (req: Request, res: Response) => {
   res.send('Hello from the backend! =)')
 })
 
-app.post('/updateScore', statController.updateScore, (req: Request, res: Response) => {
+app.post('/api/updateScore', statController.updateScore, (req: Request, res: Response) => {
   res.sendStatus(200);
 })
 
-app.get('/leaderboard', statController.fetchLeaderboard, (req: Request, res: Response) => {
+app.get('/api/leaderboard', statController.fetchLeaderboard, (req: Request, res: Response) => {
   res.status(200).send(res.locals.leaderboard);
 })
 
-app.post('/createUser', authController.createUser, (req: Request, res: Response) => {
+app.post('/api/createUser', authController.createUser, authController.populateTables, (req: Request, res: Response) => {
   res.sendStatus(200);
 })
 
-app.post('/login', authController.login, (req: Request, res: Response) => {
+app.post('/api/login', authController.login, (req: Request, res: Response) => {
   res.sendStatus(200);
 })
 

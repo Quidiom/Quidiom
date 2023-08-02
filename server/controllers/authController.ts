@@ -5,12 +5,12 @@ import { resourceLimits } from 'worker_threads';
 
 authController.createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // get a username and password from req.body, and destructure!
-    const createQuery = 'INSERT INTO users (username, password) VALUES ($1, $2);'
     const { username, password } = req.body;
+
+    const createQuery = 'INSERT INTO users (username, password) VALUES ($1, $2);'
     const createQueryParams = [username, password];
-    // perform an insertion into the SQL db, will look something like this
-    await pool.query(createQuery, createQueryParams)
+    await pool.query(createQuery, createQueryParams);
+
     return next()
   } catch(e) {
     return next({
@@ -18,6 +18,23 @@ authController.createUser = async (req: Request, res: Response, next: NextFuncti
       status: 500,
       message: {e: 'An error occured'}
     })
+  }
+}
+
+authController.populateTables = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { username } = req.body;
+    const userNameParam = [username];
+
+    await pool.query(`INSERT INTO easy (correct, total, user_id) VALUES (0, 0, (SELECT _id FROM users WHERE username=$1))`, userNameParam);
+
+    await pool.query(`INSERT INTO medium (correct, total, user_id) VALUES (0, 0, (SELECT _id FROM users WHERE username= $1))`, userNameParam);
+
+    await pool.query(`INSERT INTO hard (correct, total, user_id) VALUES (0, 0, (SELECT _id FROM users WHERE username= $1))`, userNameParam);
+
+    return next()
+  } catch (e) {
+    return next(e)
   }
 }
 
