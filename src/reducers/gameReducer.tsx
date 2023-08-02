@@ -47,7 +47,15 @@ export const gameSlice = createSlice({
       state.currentQuestion += 1
     },
     resetGame: (state) => {
-      state = initialState
+      state.gameStarted = false
+      state.questionList = []
+      state.category = ''
+      state.difficulty = ''
+      state.numCorrect = 0
+      state.currentQuestion = 0
+      state.answeredCurrent = false
+      state.currentColors = ['white', 'white', 'white', 'white']
+      state.currentAnswer = 0
     },
     toggleAnsweredCurrent: (state) => {
       state.answeredCurrent = !state.answeredCurrent

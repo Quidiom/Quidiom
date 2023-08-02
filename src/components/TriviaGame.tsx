@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { changeCurrentQuestion, correctAnswer, toggleAnsweredCurrent, updateCurrentAnswer, updateCurrentColors } from "../reducers/gameReducer";
+import { changeCurrentQuestion, correctAnswer, toggleAnsweredCurrent, updateCurrentAnswer, updateCurrentColors, resetGame } from "../reducers/gameReducer";
 import ChoiceBox from "./ChoiceBox";
+import { useNavigate } from "react-router-dom";
 
 function TriviaGame() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const questionList = useSelector((state: any) => state.game.questionList)
   const currentQuestion = useSelector((state: any) => state.game.currentQuestion)
@@ -72,13 +74,23 @@ function TriviaGame() {
   }
 
 
-  function postResults() {
+  async function postResults() {
     const body = {
       username: username,
       numCorrect: numCorrect,
       difficulty: difficulty,
     }
+    const postURL = '/updateScore'
+    await fetch(postURL, {
+      method: 'POST',
+      
+    })
     console.log('posted to db')
+  }
+
+  function handleReset() {
+    dispatch(resetGame())
+    navigate('/')
   }
 
   return (
@@ -97,7 +109,7 @@ function TriviaGame() {
           <h4>
             Congratulations! You answered {numCorrect} questions correctly!
           </h4>
-          <button >Play again?</button>
+          <button onClick={handleReset}>Play again?</button>
         </div>
       }
     </div>
