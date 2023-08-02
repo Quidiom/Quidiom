@@ -6,13 +6,14 @@ import LoginContainer from "./containers/LoginContainer"
 import GameContainer from "./containers/GameContainer"
 import Navbar from "./components/Navbar"
 import LeaderboardContainer from "./containers/LeaderboardContainer"
+import '../src/style.css';
 
-
-function App() {
+function App(props: any):any {
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center'>
       <Navbar />
-      <h1>Quidiom</h1>
+      <h1 className='text-6xl italic'>Quidiom</h1>
+      <h4>America's #1 Online Trivia App</h4>
       <Routes>
         <Route path='/' element={<MainContainer />} />
         <Route path='/signup' element={<SignupContainer />} />

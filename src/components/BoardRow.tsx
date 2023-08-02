@@ -16,14 +16,14 @@ function BoardRow(props: BoardRowProps) {
   const { username, easy_correct, easy_total, medium_correct, medium_total, hard_correct, hard_total } = props.data
 
   return (
-    <div>
-      <p>{username}:</p>
-      <p>{easy_correct}</p>
-      <p>{easy_total}</p>
-      <p>{medium_correct}</p>
-      <p>{medium_total}</p>
-      <p>{hard_correct}</p>
-      <p>{hard_total}</p>
+    <div className='flex flex-row justify-around bg-gradient-to-r from-[#c4c4c4] to-[#ffcccc]'>
+      <p className='grow m-4'>{username}:</p>
+      <p className='grow m-4'>{easy_correct}</p>
+      <p className='grow m-4'>{easy_total}</p>
+      <p className='grow m-4'>{medium_correct}</p>
+      <p className='grow m-4'>{medium_total}</p>
+      <p className='grow m-4'>{hard_correct}</p>
+      <p className='grow m-4'>{hard_total}</p>
     </div>
   )
 }

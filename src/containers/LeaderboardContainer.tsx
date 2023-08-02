@@ -39,14 +39,14 @@ function LeaderboardContainer() {
 
   return (
     <div>
-      <div>
-        <p>Username</p>
-        <p>Easy Score</p>
-        <p>Easy Total</p>
-        <p>Medium Score</p>
-        <p>Medium Total</p>
-        <p>Hard Score</p>
-        <p>Hard Total</p>
+      <div className='flex flex-row justify-around border-black border-2'>
+        <p className='grow m-3 font-bold'>Username</p>
+        <p className='grow m-3 font-bold'>Easy Score</p>
+        <p className='grow m-3 font-bold'>Easy Total</p>
+        <p className='grow m-3 font-bold'>Medium Score</p>
+        <p className='grow m-3 font-bold'>Medium Total</p>
+        <p className='grow m-3 font-bold'>Hard Score</p>
+        <p className='grow m-3 font-bold'>Hard Total</p>
       </div>
       {
         fetched &&

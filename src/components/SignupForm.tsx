@@ -54,17 +54,17 @@ function SignupForm(): React.JSX.Element {
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form className="flex flex-col justify-center align-center" onSubmit={(e) => handleSubmit(e)}>
         <label>Username:
-          <input name="username" type="text" value={username} onChange={(e) => handleChange(e)}></input>
+          <input className="border-black border-2 rounded-md ml-2" name="username" type="text" value={username} onChange={(e) => handleChange(e)}></input>
         </label>
         <label>Password:
-          <input name="password" type="password" value={password} onChange={(e) => handleChange(e)}></input>
+          <input className="border-black border-2 rounded-md ml-2" name="password" type="password" value={password} onChange={(e) => handleChange(e)}></input>
         </label>
         <label>Confirm Password:
-          <input name="confirmPassword" type="password" value={confirmPassword} onChange={(e) => handleChange(e)}></input>
+          <input className="border-black border-2 rounded-md ml-2" name="confirmPassword" type="password" value={confirmPassword} onChange={(e) => handleChange(e)}></input>
         </label>
-        <button type="submit">Submit</button>
+        <button className="border-black border-2 rounded-md" type="submit">Submit</button>
       </form>
     </div>
   )
