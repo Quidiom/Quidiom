@@ -5,12 +5,12 @@ import { chooseCategory, chooseDifficulty, startGame, setQuestions } from "../re
 function GameOptions(): React.JSX.Element {
   const dispatch = useDispatch()
 
-  const category = useSelector((state: any) => state.game.category)
+  const category: string = useSelector((state: any) => state.game.category)
   const difficulty = useSelector((state: any) => state.game.difficulty)
 
   const baseURL = 'https://opentdb.com/api.php?amount=10'
 
-  const categoryNums = {
+  const categoryNums: any = {
     'General': '9',
     'History': '23',
     'Science': '17',
@@ -34,7 +34,7 @@ function GameOptions(): React.JSX.Element {
   }
 
   async function fetchQuestions() {
-    const customURL = baseURL + '&category=' + categoryNums[category] + '&difficulty=' + difficulty + '&type=multiple'
+    const customURL= baseURL + '&category=' + categoryNums[category] + '&difficulty=' + difficulty + '&type=multiple'
     try {
       const response = await fetch(customURL)
       const data = await response.json()

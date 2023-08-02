@@ -67,7 +67,7 @@ statController.fetchLeaderboard = async (req: Request, res: Response, next: Next
   return next()
 };
 
-module.exports = statController
+module.exports = statController;
 
 /**
  * INSERT INTO easy (correct, total, user_id) 

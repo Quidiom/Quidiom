@@ -28,6 +28,10 @@ app.post('/createUser', authController.createUser, (req: Request, res: Response)
   res.sendStatus(200);
 })
 
+app.post('/login', authController.login, (req: Request, res: Response) => {
+  res.sendStatus(200);
+})
+
 // unknown route handler
 app.use((req, res) => {
   res.status(404).send('Page not found')
