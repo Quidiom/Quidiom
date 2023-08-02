@@ -4,7 +4,7 @@ interface loginState {
   username: string,
   password: string,
   loggedIn: boolean,
-  loggedInUser: any,
+  loggedInUser: string,
   failedLogin: boolean
 }
 
@@ -12,7 +12,7 @@ const initialState: loginState = {
   username: '',
   password: '',
   loggedIn: false,
-  loggedInUser: undefined,
+  loggedInUser: '',
   failedLogin: false
 }
 
@@ -29,10 +29,11 @@ export const loginSlice = createSlice({
     failedLogin: (state, action) => {
       state.failedLogin = action.payload
     },
-    successfulLogin: (state) => {
+    successfulLogin: (state, action) => {
       state = {
         ...initialState,
-        loggedIn: true
+        loggedIn: true,
+        loggedInUser: action.payload
       }
     },
     logout: (state) => {

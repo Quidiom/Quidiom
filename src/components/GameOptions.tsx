@@ -1,16 +1,19 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { chooseCategory, chooseDifficulty, startGame, setQuestions } from "../reducers/gameReducer"
+import { categoryObj, categoryKey } from "../types"
+import { useNavigate } from "react-router-dom"
 
 function GameOptions(): React.JSX.Element {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const category: string = useSelector((state: any) => state.game.category)
+  const category: categoryKey = useSelector((state: any) => state.game.category)
   const difficulty = useSelector((state: any) => state.game.difficulty)
 
   const baseURL = 'https://opentdb.com/api.php?amount=10'
 
-  const categoryNums: any = {
+  const categoryNums: categoryObj = {
     'General': '9',
     'History': '23',
     'Science': '17',
@@ -28,9 +31,11 @@ function GameOptions(): React.JSX.Element {
   }
 
   function handleClick(e: any) {
+    e.preventDefault()
     fetchQuestions()
     dispatch(startGame())
     //redirect to /game path
+    setTimeout(() => { navigate('/game') }, 1000)
   }
 
   async function fetchQuestions() {
@@ -51,6 +56,7 @@ function GameOptions(): React.JSX.Element {
     <div id='gameOptions'>
       <p>Choose a category</p>
       <select onChange={(e) => handleChange(e)} name='selectCategory'>
+        <option value=''>Select a Category</option>
         <option value='General'>General</option>
         <option value='History'>History</option>
         <option value='Science'>Science</option>
@@ -60,6 +66,7 @@ function GameOptions(): React.JSX.Element {
       </select>
       <p>Choose a difficulty</p>
       <select onChange={(e) => handleChange(e)} name='selectDifficulty'>
+        <option value=''>Select a Difficulty</option>
         <option value='easy'>Easy</option>
         <option value='medium'>Medium</option>
         <option value='hard'>Hard</option>

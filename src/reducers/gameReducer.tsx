@@ -6,7 +6,10 @@ interface gameState {
   category: string,
   difficulty: string,
   numCorrect: number,
-  currentQuestion: number
+  currentQuestion: number,
+  answeredCurrent: boolean,
+  currentColors: string[],
+  currentAnswer: number
 }
 
 const initialState: gameState = {
@@ -15,7 +18,10 @@ const initialState: gameState = {
   category: '',
   difficulty: '',
   numCorrect: 0,
-  currentQuestion: 0
+  currentQuestion: 0,
+  answeredCurrent: false,
+  currentColors: ['white', 'white', 'white', 'white'],
+  currentAnswer: 0
 }
 
 export const gameSlice = createSlice({
@@ -41,11 +47,28 @@ export const gameSlice = createSlice({
       state.currentQuestion += 1
     },
     resetGame: (state) => {
-      state = initialState
+      state.gameStarted = false
+      state.questionList = []
+      state.category = ''
+      state.difficulty = ''
+      state.numCorrect = 0
+      state.currentQuestion = 0
+      state.answeredCurrent = false
+      state.currentColors = ['white', 'white', 'white', 'white']
+      state.currentAnswer = 0
+    },
+    toggleAnsweredCurrent: (state) => {
+      state.answeredCurrent = !state.answeredCurrent
+    },
+    updateCurrentColors: (state, action) => {
+      state.currentColors = action.payload
+    },
+    updateCurrentAnswer: (state, action) => {
+      state.currentAnswer = action.payload
     }
   }
 })
 
-export const { startGame, chooseCategory, chooseDifficulty, correctAnswer, setQuestions, changeCurrentQuestion, resetGame } = gameSlice.actions
+export const { startGame, chooseCategory, chooseDifficulty, correctAnswer, setQuestions, changeCurrentQuestion, resetGame, toggleAnsweredCurrent, updateCurrentColors, updateCurrentAnswer } = gameSlice.actions
 
 export default gameSlice.reducer
