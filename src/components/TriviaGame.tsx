@@ -16,13 +16,15 @@ function TriviaGame() {
   const username = useSelector((state: any) => state.login.loggedInUser)
   const currentColors = useSelector((state: any) => state.game.currentColors)
 
-  // const [choicesColors, setChoicesColors] = useState(['white', 'white', 'white', 'white'])
   const [currentChoices, setCurrentChoices] = useState([])
-  // const [currentAnswer, setCurrentAnswer] = useState(0)
 
-  // useEffect(formatChoices, [])
   useEffect(randomizeAnswer, [currentQuestion])
-  useEffect(formatChoices, [currentAnswer])
+  useEffect(formatChoices, [currentAnswer, currentQuestion])
+  useEffect(() => {
+    if (currentQuestion === 9 && answeredCurrent === true) {
+      postResults()
+    }
+  }, [answeredCurrent])
 
   function handleNextClick() {
     dispatch(toggleAnsweredCurrent())
@@ -42,7 +44,6 @@ function TriviaGame() {
       colorsCopy[e.target.id] = 'red'
       colorsCopy[currentAnswer] = 'green'
     }
-    // setChoicesColors(colorsCopy)
     dispatch(updateCurrentColors(colorsCopy))
     dispatch(toggleAnsweredCurrent())
   }
@@ -77,15 +78,27 @@ function TriviaGame() {
       numCorrect: numCorrect,
       difficulty: difficulty,
     }
+    console.log('posted to db')
   }
 
   return (
     <div>
+      <h3>
+        Question {currentQuestion + 1} / 10
+      </h3>
       {questionList.length &&
         <h3>{questionList[currentQuestion].question}</h3>}
       {currentChoices}
-      {answeredCurrent &&
+      {answeredCurrent && (currentQuestion !== 9) &&
         <button onClick={handleNextClick}>Next Question</button>
+      }
+      {(currentQuestion === 9) && (answeredCurrent) &&
+        <div>
+          <h4>
+            Congratulations! You answered {numCorrect} questions correctly!
+          </h4>
+          <button >Play again?</button>
+        </div>
       }
     </div>
   )
