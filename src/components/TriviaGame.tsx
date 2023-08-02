@@ -102,7 +102,7 @@ function TriviaGame() {
   }
 
   return (
-    <div>
+    <div className='flex flex-col justify-center align-center'>
       <h3>
         Question {currentQuestion + 1} / 10
       </h3>
@@ -110,7 +110,7 @@ function TriviaGame() {
         <h3>{questionList[currentQuestion].question}</h3>}
       {currentChoices}
       {answeredCurrent && (currentQuestion !== 9) &&
-        <button onClick={handleNextClick}>Next Question</button>
+        <button onClick={handleNextClick} className='border-black border-2 mt-5 mb-5 rounded-lg'>Next Question</button>
       }
       {(currentQuestion === 9) && (answeredCurrent) &&
         <div>

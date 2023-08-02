@@ -53,9 +53,9 @@ function GameOptions(): React.JSX.Element {
 
 
   return (
-    <div id='gameOptions'>
-      <p>Choose a category</p>
-      <select onChange={(e) => handleChange(e)} name='selectCategory'>
+    <div id='gameOptions' className='flex flex-col justify-center align-center'>
+      <p className='text-2xl'>Choose a category</p>
+      <select onChange={(e) => handleChange(e)} name='selectCategory' className='border-black border-2 shadow-lg'>
         <option value=''>Select a Category</option>
         <option value='General'>General</option>
         <option value='History'>History</option>
@@ -64,14 +64,14 @@ function GameOptions(): React.JSX.Element {
         <option value='Geography'>Geography</option>
         <option value='Film'>Film</option>
       </select>
-      <p>Choose a difficulty</p>
-      <select onChange={(e) => handleChange(e)} name='selectDifficulty'>
+      <p className='text-2xl'>Choose a difficulty</p>
+      <select onChange={(e) => handleChange(e)} name='selectDifficulty' className='border-black border-2 shadow-lg'>
         <option value=''>Select a Difficulty</option>
         <option value='easy'>Easy</option>
         <option value='medium'>Medium</option>
         <option value='hard'>Hard</option>
       </select>
-      <button onClick={(e) => { handleClick(e) }}>Play!</button>
+      <button onClick={(e) => { handleClick(e) }} className='border-black border-2 rounded-lg hover:bg-gray-300 mt-5 shadow-lg'>Play!</button>
     </div>
   )
 }

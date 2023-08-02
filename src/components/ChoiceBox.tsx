@@ -14,7 +14,7 @@ function ChoiceBox(props: choiceBoxProps): React.JSX.Element {
   const { answer, idx, clickHandle } = props
 
   return (
-    <button id={idx.toString()} disabled={answeredCurrent} onClick={(e) => clickHandle(e)} style={{ backgroundColor: currentColors[idx] }}>{answer}</button>
+    <button className='border-black border-2 mt-5 mb-5 rounded-lg shadow-lg' id={idx.toString()} disabled={answeredCurrent} onClick={(e) => clickHandle(e)} style={{ backgroundColor: currentColors[idx] }}>{answer}</button>
   )
 }
 
