@@ -39,7 +39,7 @@ function GameOptions(): React.JSX.Element {
   }
 
   async function fetchQuestions() {
-    const customURL = baseURL + '&category=' + categoryNums[category] + '&difficulty=' + difficulty + '&type=multiple'
+    const customURL= baseURL + '&category=' + categoryNums[category] + '&difficulty=' + difficulty + '&type=multiple'
     try {
       const response = await fetch(customURL)
       const data = await response.json()
