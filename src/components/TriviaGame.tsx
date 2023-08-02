@@ -80,17 +80,15 @@ function TriviaGame() {
       numCorrect: numCorrect,
       difficulty: difficulty,
     }
-    const postURL = '/updateScore'
+    const postURL = '/api/updateScore'
     try {
       const response = await fetch(postURL, {
         method: 'POST',
-        body: postBody,
+        body: JSON.stringify(postBody),
         headers: {
           "Content-Type": "application/json",
         }
       })
-      const data = response.json()
-      console.log(data)
       console.log('posted to db')
     }
     catch (e) {

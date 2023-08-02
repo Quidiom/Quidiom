@@ -30,11 +30,9 @@ export const loginSlice = createSlice({
       state.failedLogin = action.payload
     },
     successfulLogin: (state, action) => {
-      state = {
-        ...initialState,
-        loggedIn: true,
-        loggedInUser: action.payload
-      }
+      state.loggedIn = true
+      state.loggedInUser = action.payload
+      state.failedLogin = false
     },
     logout: (state) => {
       state = initialState

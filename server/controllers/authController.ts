@@ -46,6 +46,7 @@ authController.login = async (req: Request, res: Response, next: NextFunction) =
   const userRow = (await pool.query(userQuery, queryParams)).rows[0];
   if (userRow) {
     if (userRow.password === password) {
+      res.locals.username = userRow.username
       return next() 
     } else {
       return next({
