@@ -3,27 +3,27 @@ import React from "react";
 interface BoardRowProps {
   data: {
     username: string,
-    easyCorrect: number,
-    easyTotal: number,
-    medCorrect: number,
-    medTotal: number,
-    hardCorrect: number,
-    hardTotal: number,
+    easy_correct: number,
+    easy_total: number,
+    medium_correct: number,
+    medium_total: number,
+    hard_correct: number,
+    hard_total: number,
   }
 }
 
 function BoardRow(props: BoardRowProps) {
-  const { username, easyCorrect, easyTotal, medCorrect, medTotal, hardCorrect, hardTotal } = props.data
+  const { username, easy_correct, easy_total, medium_correct, medium_total, hard_correct, hard_total } = props.data
 
   return (
     <div>
       <p>{username}:</p>
-      <p>{easyCorrect}</p>
-      <p>{easyTotal}</p>
-      <p>{medCorrect}</p>
-      <p>{medTotal}</p>
-      <p>{hardCorrect}</p>
-      <p>{hardTotal}</p>
+      <p>{easy_correct}</p>
+      <p>{easy_total}</p>
+      <p>{medium_correct}</p>
+      <p>{medium_total}</p>
+      <p>{hard_correct}</p>
+      <p>{hard_total}</p>
     </div>
   )
 }

@@ -16,7 +16,7 @@ function LeaderboardContainer() {
   }, [boardData])
 
   async function fetchData() {
-    const URL = '/leaderboard'
+    const URL = '/api/leaderboard'
     try {
       const response = await fetch(URL)
       const data = await response.json()
@@ -31,7 +31,7 @@ function LeaderboardContainer() {
     const components: React.JSX.Element[] = []
     for (let i = 0; i < boardData.length; i++) {
       components.push(
-        <BoardRow data={boardData[i]} />
+        <BoardRow data={boardData[i]} key={i} />
       )
     }
     setBoardRows(components)

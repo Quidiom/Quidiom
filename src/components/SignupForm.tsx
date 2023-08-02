@@ -2,10 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updateConfirmSignupPassword, updateSignupPassword, updateSignupUsername } from "../reducers/signupReducer";
+import { successfulLogin } from "../reducers/loginReducer";
+import { useNavigate } from "react-router-dom";
 
 
 function SignupForm(): React.JSX.Element {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const username = useSelector((state: any) => state.signup.username)
   const password = useSelector((state: any) => state.signup.password)
@@ -21,9 +24,32 @@ function SignupForm(): React.JSX.Element {
     }
   }
 
-  function handleSubmit(e: any) {
+  async function handleSubmit(e: any) {
     e.preventDefault()
     //make request to signup path on server
+    const URL = '/api/createUser'
+    const signupBody: any = {
+      username: username,
+      password: password
+    }
+    if (password === confirmPassword) {
+      try {
+        const response = await fetch(URL, {
+          method: 'POST',
+          body: JSON.stringify(signupBody),
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
+        if (response.ok) {
+          dispatch(successfulLogin(username))
+        }
+        navigate('/')
+      }
+      catch (e) {
+        console.log(e)
+      }
+    }
   }
 
   return (

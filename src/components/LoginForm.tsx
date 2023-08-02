@@ -29,11 +29,12 @@ function LoginForm(): React.JSX.Element {
           username: username,
           password: password
         }
+        console.log(username, password)
         //make request to login path on server
         //store received user info in state
         const response = await fetch('/api/login', {
           method: 'POST',
-          body: loginBody,
+          body: JSON.stringify(loginBody),
           headers: {
             "Content-Type": "application/json",
           }
@@ -60,7 +61,9 @@ function LoginForm(): React.JSX.Element {
         </label>
         <button type="submit">Submit</button>
       </form>
-      { }
+      {failedLogin &&
+        <p>Your username or password is incorrect!</p>
+      }
     </div>
   )
 }
