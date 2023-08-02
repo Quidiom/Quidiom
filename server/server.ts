@@ -1,4 +1,4 @@
-import express, { Express, Request, Response,  } from 'express';
+import express, { Express, NextFunction, Request, Response,  } from 'express';
 const { Pool } = require('pg');
 require("dotenv").config();
 const connectionString: string | undefined = process.env.PG_CONNECTION_STRING; 
@@ -38,14 +38,15 @@ app.use((req, res) => {
 })
 
 // global error handler
-app.use((err: Error, req: Request, res: Response) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction): any => {
   const defaultError = {
     log: 'Middleware error',
     status: 500,
     message: 'Express caught an unknown error in middleware',
   }
   const errorObject = Object.assign(defaultError, err)
-  console.log(errorObject.log)
+  // console.log(errorObject);
+  // console.log(errorObject.log)
   res.status(errorObject.status).json(errorObject.message)
 })
 

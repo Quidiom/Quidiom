@@ -27,29 +27,25 @@ authController.login = async (req: Request, res: Response, next: NextFunction) =
   const userQuery = 'SELECT * FROM users WHERE username = $1';
   const queryParams = [username];
   const userRow = (await pool.query(userQuery, queryParams)).rows[0];
-  console.log(userRow)
   if (userRow) {
-    // check to see if password === password
     if (userRow.password === password) {
-      console.log('Password is a match!')
+      return next() 
     } else {
-      console.log("Password doesn't match!")
+      return next({
+        log: 'Express error handler caught incorrect login',
+        status: 500,
+        message: 'Incorrect password'
+      })
     }
   } else {
-    console.log("User not found")
-    res.locals.message = 'User not found!'
+    return next({
+      log: 'Express error handler caught incorrect login',
+      status: 500,
+      message: 'Incorrect username or password'
+    })
   }
-
-  
-  
-  // check is username exists in db
-  // if it does, check the user's password
-  // if it does not, display "user not found"
-
-  
-  
-  
-  return next()
+// if user login success, send success status, frontend will redirect
+// if incorrect username or password trigger global error handler with descriptive message for frontend
 }
 
 authController.logout = (req: Request, res: Response, next: NextFunction) => {

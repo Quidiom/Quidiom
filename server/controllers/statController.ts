@@ -52,6 +52,7 @@ statController.fetchLeaderboard = async (req: Request, res: Response, next: Next
     const medium = (await pool.query('SELECT * FROM medium')).rows
     const hard = (await pool.query('SELECT * FROM hard')).rows
     res.locals.leaderboard = [easy, medium, hard]
+    //send usernames along with results tables!!
     // return an array containing all of these variables
   } catch (e) {
     return next({
