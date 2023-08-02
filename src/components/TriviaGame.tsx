@@ -23,7 +23,7 @@ function TriviaGame() {
   useEffect(randomizeAnswer, [currentQuestion])
   useEffect(formatChoices, [currentAnswer, currentQuestion])
   useEffect(() => {
-    if (currentQuestion === 9 && answeredCurrent === true) {
+    if (currentQuestion === 9 && answeredCurrent === true && username.length > 0) {
       postResults()
     }
   }, [answeredCurrent])
@@ -75,17 +75,27 @@ function TriviaGame() {
 
 
   async function postResults() {
-    const body = {
+    const postBody: any = {
       username: username,
       numCorrect: numCorrect,
       difficulty: difficulty,
     }
     const postURL = '/updateScore'
-    await fetch(postURL, {
-      method: 'POST',
-      
-    })
-    console.log('posted to db')
+    try {
+      const response = await fetch(postURL, {
+        method: 'POST',
+        body: postBody,
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      const data = response.json()
+      console.log(data)
+      console.log('posted to db')
+    }
+    catch (e) {
+      console.log('error posting scores', e)
+    }
   }
 
   function handleReset() {
