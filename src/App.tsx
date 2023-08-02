@@ -10,14 +10,12 @@ function App() {
   return (
     <div>
       <h1>Quidiom</h1>
-      <BrowserRouter>
         <Routes>
           <Route path='/' element={<MainContainer />} />
           <Route path='/signup' element={<SignupContainer />} />
           <Route path='/login' element={<LoginContainer />} />
           <Route path='/game' element={<GameContainer />} />
         </Routes>
-      </BrowserRouter>
     </div>
   )
 }

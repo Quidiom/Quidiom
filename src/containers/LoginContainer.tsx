@@ -1,10 +1,12 @@
 import React from "react"
+import LoginForm from "../components/LoginForm"
 
 function LoginContainer(): React.JSX.Element {
   return (
-    <>
-      Login
-    </>
+    <div>
+      <h1>Login</h1>
+      <LoginForm />
+    </div>
   )
 }
 

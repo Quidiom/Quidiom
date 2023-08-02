@@ -3,12 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 interface signupState {
   username: string,
   password: string,
+  confirmPassword: string,
   failedSignup: boolean
 }
 
 const initialState: signupState = {
   username: '',
   password: '',
+  confirmPassword: '',
   failedSignup: false
 }
 
@@ -22,7 +24,10 @@ export const signupSlice = createSlice({
     updateSignupPassword: (state, action) => {
       state.password = action.payload
     },
-    failedSignup: (state, action) => {
+    updateConfirmSignupPassword: (state, action) => {
+      state.confirmPassword = action.payload
+    },
+    failedSignup: (state) => {
       state.failedSignup = true
     },
     resetState: (state) => {
@@ -31,6 +36,6 @@ export const signupSlice = createSlice({
   }
 })
 
-export const { updateSignupUsername, updateSignupPassword, failedSignup, resetState } = signupSlice.actions
+export const { updateSignupUsername, updateSignupPassword, updateConfirmSignupPassword, failedSignup, resetState } = signupSlice.actions
 
 export default signupSlice.reducer
